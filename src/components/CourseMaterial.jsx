@@ -9,7 +9,7 @@ const CourseMaterial = () => {
   };
 
   return (
-    <div className = "tab-window">
+    <div className = "coursematerial-window">
       <h2>Course Materials</h2>
 
       {/* Core Books */}

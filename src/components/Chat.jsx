@@ -10,8 +10,7 @@ const Chat = () => {
     }
   ]);
   const [input, setInput] = useState('');
-
-  const sendMessage = () => {
+  const sendMessage = async () => {
   if (!input.trim()) return;
 
   const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -30,23 +29,99 @@ const Chat = () => {
   };
 
   setMessages(prev => [...prev, userMessage, loadingMessage]);
+  const userQuestion = input; // Capture the question
   setInput('');
 
-  setTimeout(() => {
-    const botTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    const botResponse = {
-      from: 'bot',
-      text: "Thanks for your message! I am working on it.",
-      time: botTime
+  // ✅ Send to backend (currently mocked)
+  try {
+    const payload = {
+      question: userQuestion,
+      timestamp: new Date().toISOString()
     };
+
+    console.log("Sending payload to API:", payload);
+    const start = Date.now();
+
+    const response = await fetch('http://127.0.0.1:8000/ask', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await response.json();
+    const elapsed = Date.now() - start;
+
+// Wait extra time if needed to reach 1.5s total
+if (elapsed < 1500) {
+  await new Promise(resolve => setTimeout(resolve, 1500 - elapsed));
+}
+    // Fake fallback if API isn't ready
+    const botReply = data?.reply || "Thanks for your message! I am working on it.";
+
+    const botTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const botResponse = { from: 'bot', text: botReply, time: botTime };
 
     setMessages(prev => {
       const updated = [...prev];
-      updated.pop(); // remove loading message
+      updated.pop(); // remove loading
       return [...updated, botResponse];
     });
-  }, 2000); // 2 seconds
+  } catch (error) {
+    console.error("API error:", error);
+    const botTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    setMessages(prev => {
+      const updated = [...prev];
+      updated.pop(); // remove loading
+      return [
+        ...updated,
+        {
+          from: 'bot',
+          text: "Sorry, something went wrong while processing your question.",
+          time: botTime,
+        }
+      ];
+    });
+  }
 };
+
+//   const sendMessage = () => {
+//   if (!input.trim()) return;
+
+//   const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+//   const userMessage = { from: 'user', text: input, time };
+
+//   const loadingMessage = {
+//     from: 'bot',
+//     text: (
+//       <div className="typing-dots">
+//         <div className="typing-dot"></div>
+//         <div className="typing-dot"></div>
+//         <div className="typing-dot"></div>
+//       </div>
+//     ),
+//     time: ''
+//   };
+
+//   setMessages(prev => [...prev, userMessage, loadingMessage]);
+//   setInput('');
+
+//   setTimeout(() => {
+//     const botTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+//     const botResponse = {
+//       from: 'bot',
+//       text: "Thanks for your message! I am working on it.",
+//       time: botTime
+//     };
+
+//     setMessages(prev => {
+//       const updated = [...prev];
+//       updated.pop(); // remove loading message
+//       return [...updated, botResponse];
+//     });
+//   }, 2000); // 2 seconds
+// };
   return (
     <div className="chat-window">
       <div className="messages">

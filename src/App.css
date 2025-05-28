@@ -5,6 +5,8 @@
   font-family: Arial, sans-serif;
   border-right: 1px solid #ddd;
   height: 95vh;
+  flex-shrink: 0;
+
 }
 
 .tab {
@@ -39,7 +41,7 @@
 .app {
   display: flex;
   height: 100vh;
-  width: 155%;
+  width: 100vw;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: white;
 }
@@ -57,7 +59,7 @@
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-.tab-window {
+.coursematerial-window {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -73,7 +75,7 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  overflow-y: auto;
+  /* overflow-y: auto; */
   margin-bottom: 10px;
   padding: 10px;
   color:#090909
@@ -114,12 +116,16 @@
   margin: 0;
 }
 
-.message.bot {
-  background-color: #e8f5e9;
-}
-
 .message.user {
   background-color: #e3f2fd;
+  max-width: 60%;
+  width: fit-content;
+}
+
+.message.bot {
+  background-color: #e8f5e9;
+  max-width: 60%;
+  width: fit-content;
 }
 
 /* Timestamp */
@@ -249,4 +255,49 @@ input[type='text'] {
   40% {
     opacity: 1;
   }
+}
+
+/* Dropdown Section Container */
+.dropdown-section {
+  margin-bottom: 20px;
+}
+
+/* Dropdown Header */
+.dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f1f1f1;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  color: #333;
+}
+
+.dropdown-header:hover {
+  background-color: #e0e0e0;
+}
+
+/* Dropdown List */
+.dropdown-list {
+  margin-top: 10px;
+  padding-left: 20px;
+  list-style-type: disc;
+  color: #444;
+  font-size: 14.5px;
+}
+
+/* Dropdown List Items */
+.dropdown-list li {
+  margin-bottom: 6px;
+}
+
+/* Optional: Style h2 heading inside tab-window */
+.tab-window h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #222;
+  font-weight: bold;
 }
