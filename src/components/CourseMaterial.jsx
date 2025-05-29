@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaChevronDown, FaChevronUp, FaFilePdf } from 'react-icons/fa';
 
 const CourseMaterial = () => {
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -9,7 +9,7 @@ const CourseMaterial = () => {
   };
 
   return (
-    <div className = "coursematerial-window">
+    <div className="coursematerial-window">
       <h2>Course Materials</h2>
 
       {/* Core Books */}
@@ -18,10 +18,20 @@ const CourseMaterial = () => {
           Core Books {openDropdown === 'core' ? <FaChevronUp /> : <FaChevronDown />}
         </div>
         {openDropdown === 'core' && (
-          <ul className="dropdown-list">
-            <li>Core Book 1: Introduction to AI</li>
-            <li>Core Book 2: Machine Learning Basics</li>
-          </ul>
+       <ul className="dropdown-list">
+       <li>
+          <a href="/pdfs/corebks/Cecil Reynolds, Ronald Livingston, Victor Willson - Measurement and Assessment in Education-Pearson (2008).pdf" target="_blank" rel="noopener noreferrer" className="pdf-link">
+          <FaFilePdf style={{ marginRight: '8px', color: 'red' }} />
+          Core Book 1: Cecil Reynolds, Ronald Livingston, Victor Willson - Measurement and Assessment in Education-Pearson (2008)
+          </a>
+       </li>
+       <li>
+          <a href="/pdfs/corebks/M. David Miller, Robert L. Linn, Norman E. Gronlund - Measurement and assessment in teaching-Pearson Education (2009).pdf" target="_blank" rel="noopener noreferrer" className="pdf-link">
+          <FaFilePdf style={{ marginRight: '8px', color: 'red' }} />
+           Core Book 2: M. David Miller, Robert L. Linn, Norman E. Gronlund - Measurement and assessment in teaching-Pearson Education (2009)
+          </a>
+        </li>
+       </ul>
         )}
       </div>
 
@@ -32,11 +42,31 @@ const CourseMaterial = () => {
         </div>
         {openDropdown === 'reference' && (
           <ul className="dropdown-list">
-            <li>Reference Book 1: Deep Learning by Goodfellow</li>
-            <li>Reference Book 2: Pattern Recognition and ML</li>
-            <li>Reference Book 3: Artificial Intelligence – A Modern Approach</li>
-            <li>Reference Book 4: Python Machine Learning</li>
-            <li>Reference Book 5: Data Mining Concepts</li>
+            <li>
+              <a href="pdfs/refbks/Classroom Assessment for Student Learning_ Doing It Right - Using It Well by Jan Chappuis.pdf" target="_blank" rel="noopener noreferrer" className="pdf-link">
+              <FaFilePdf style={{ marginRight: '8px', color: 'red' }} />Reference Book 1: Classroom Assessment for Student Learning_ Doing It Right - Using It Well by Jan Chappuis
+              </a>
+            </li>
+            <li>
+              <a href="/pdfs/refbks/Clay and Root (2001) Is this a trick question - A short guide to writing effective test questions.pdf" target="_blank" rel="noopener noreferrer" className="pdf-link">
+              <FaFilePdf style={{ marginRight: '8px', color: 'red' }} />Reference Book 2: Clay and Root (2001) Is this a trick question - A short guide to writing effective test questions
+              </a>
+            </li>
+            <li>
+              <a href="/pdfs/refbks/Scoring Rubrics in the Classroom_ Using Performance Criteria for Assessing and Improving Student Performance by Judith A. Arter.pdf" target="_blank" rel="noopener noreferrer" className="pdf-link">
+              <FaFilePdf style={{ marginRight: '8px', color: 'red' }} />Reference Book 3: Scoring Rubrics in the Classroom_ Using Performance Criteria for Assessing and Improving Student Performance by Judith A. Arter
+              </a>
+            </li>
+            <li>
+              <a href="pdfs/refbks/Southeast Missouri State University (2005) Rubric examples.pdf" target="_blank" rel="noopener noreferrer" className="pdf-link">
+              <FaFilePdf style={{ marginRight: '8px', color: 'red' }} />Reference Book 4: Southeast Missouri State University (2005) Rubric examples
+              </a>
+            </li>
+            <li>
+              <a href="pdfs/refbks/Standards for Educational and Psychological Testing (2014).pdf" target="_blank" rel="noopener noreferrer" className="pdf-link">
+              <FaFilePdf style={{ marginRight: '8px', color: 'red' }} />Reference Book 5: Standards for Educational and Psychological Testing (2014)
+              </a>  
+            </li>
           </ul>
         )}
       </div>
@@ -49,13 +79,14 @@ const CourseMaterial = () => {
         {openDropdown === 'articles' && (
           <ul className="dropdown-list">
             {[...Array(13)].map((_, index) => (
-              <li key={index}>Research Article {index + 1}</li>
+              <li key={index}>
+                <FaFilePdf style={{ marginRight: '8px', color: 'red' }} />Research Article {index + 1}
+              </li>
             ))}
           </ul>
         )}
       </div>
     </div>
-    
   );
 };
 
