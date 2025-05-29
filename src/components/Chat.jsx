@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaComments, FaBook, FaUser, FaRobot, FaClipboardList } from 'react-icons/fa';
 import { FaMicrophone } from 'react-icons/fa';
+import ReactMarkdown from 'react-markdown';
 
 
 const Chat = () => {
@@ -96,7 +97,13 @@ if (elapsed < 1500) {
       {msg.from === 'user' ? <FaUser size={16} /> : <FaRobot size={16} />}
     </div>
     <div className="bubble-timestamp">
-      <div className={`message ${msg.from}`}>{msg.text}</div>
+      <div className={`message ${msg.from}`}>
+  {typeof msg.text === 'string' ? (
+    <ReactMarkdown>{msg.text}</ReactMarkdown>
+  ) : (
+    msg.text
+  )}
+</div>
       <div className="timestamp">{msg.time}</div>
     </div>
   </div>
