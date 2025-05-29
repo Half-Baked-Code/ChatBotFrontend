@@ -167,8 +167,16 @@
   background-color: #c8e6c9;
 }
 
-/* Input Area */
-.input-area {
+.mic-icon {
+  padding: 12px 8px;
+  color: #666;
+  cursor: pointer;
+}
+
+.mic-icon:hover {
+  color: #d32f2f; /* red hover effect */
+}
+ .input-area {
   display: flex;
   gap: 10px;
   padding-bottom: 5px;
@@ -176,18 +184,18 @@
 
 input[type='text'] {
   flex-grow: 1;
-  padding: 12px 14px; /* increased padding for slightly taller input */
+  padding: 12px 14px; 
   border-radius: 12px;
   font-size: 16px;
   border: 1px solid #ccc;
-  background-color: #e9e9e9; /* lighter grey */
+  background-color: #e9e9e9; 
   color: black
 }
 
 .input-icon {
   margin-right: 8px;
   padding-top: 7px;
-  color: #4caf50; /* Optional: match your theme */
+  color: #4caf50; 
 }
 
 .input-area button {
@@ -202,7 +210,7 @@ input[type='text'] {
 
 .input-area button:hover {
   background-color: #0056b3;
-}
+} 
 
 /* Title & Icon */
 .bot-icon {
@@ -330,3 +338,4 @@ background-color: rgba(46, 125, 50, 0.6);}
 .pdf-link:hover {
   color: #d32f2f; /* dark red on hover */
 }
+

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { FaComments, FaBook, FaUser, FaRobot, FaClipboardList } from 'react-icons/fa';
+import { FaMicrophone } from 'react-icons/fa';
+
 
 const Chat = () => {
   const [messages, setMessages] = useState([
@@ -85,43 +87,6 @@ if (elapsed < 1500) {
     });
   }
 };
-
-//   const sendMessage = () => {
-//   if (!input.trim()) return;
-
-//   const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-//   const userMessage = { from: 'user', text: input, time };
-
-//   const loadingMessage = {
-//     from: 'bot',
-//     text: (
-//       <div className="typing-dots">
-//         <div className="typing-dot"></div>
-//         <div className="typing-dot"></div>
-//         <div className="typing-dot"></div>
-//       </div>
-//     ),
-//     time: ''
-//   };
-
-//   setMessages(prev => [...prev, userMessage, loadingMessage]);
-//   setInput('');
-
-//   setTimeout(() => {
-//     const botTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-//     const botResponse = {
-//       from: 'bot',
-//       text: "Thanks for your message! I am working on it.",
-//       time: botTime
-//     };
-
-//     setMessages(prev => {
-//       const updated = [...prev];
-//       updated.pop(); // remove loading message
-//       return [...updated, botResponse];
-//     });
-//   }, 2000); // 2 seconds
-// };
   return (
     <div className="chat-window">
       <div className="messages">
@@ -148,8 +113,12 @@ if (elapsed < 1500) {
     onChange={(e) => setInput(e.target.value)}
     placeholder="Ask StudyBot anything..."
   />
+  <div className="mic-icon" onClick={() => alert("Mic clicked - integrate speech input here!")}>
+    <FaMicrophone size={18} />
+  </div>
   <button onClick={sendMessage}>Send</button>
 </div>
+
     </div>
   );
 };
