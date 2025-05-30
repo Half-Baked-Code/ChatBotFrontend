@@ -114,12 +114,15 @@
   word-wrap: break-word;
   overflow-wrap: break-word;
   margin: 0;
+    line-height: 1.0; 
+
 }
 
 .message.user {
   background-color: #e3f2fd;
   max-width: 60%;
   width: fit-content;
+    line-height: 1.3; 
 }
 
 .message.bot {
@@ -193,9 +196,17 @@ input[type='text'] {
 }
 
 .input-icon {
+  width: 36px;
+  height: 36px;
+  background-color: #e8f5e9; 
+  color: #4caf50;
+  border-radius: 50%; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-right: 8px;
-  padding-top: 7px;
-  color: #4caf50; 
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
 }
 
 .input-area button {
@@ -339,3 +350,202 @@ background-color: rgba(46, 125, 50, 0.6);}
   color: #d32f2f; /* dark red on hover */
 }
 
+/* STUDY GUIDE */
+.studyguide-window {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.studyguide-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.studyguide-subtitle {
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.custom-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  color: black;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.custom-button {
+  background-color: #e0e0e0; 
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.custom-button:hover {
+  background-color: #bdbdbd; 
+}
+
+.notes-section {
+  margin-top: 1rem;
+}
+
+.notes-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: black;
+}
+
+.notes-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.note-item {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.note-item:hover {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.note-title {
+  font-weight: 600;
+  color: black;
+}
+
+.note-date {
+  font-size: 0.875rem;
+  color: #777;
+  margin-top: 0.25rem;
+}
+
+.note-item {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  transition: box-shadow 0.2s ease-in-out;
+  position: relative;
+}
+
+.note-item:hover {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.note-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  color: black;
+}
+
+.menu-button:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 10px;
+  top: 48px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  list-style: none;
+  padding: 6px 0;
+  width: 120px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  color: black;
+}
+
+.dropdown-menu li {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-menu li:hover {
+  background-color: #f0f0f0;
+}
+
+.document-select-container {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.document-select-label {
+  font-weight: bold;
+  font-size: 16px;
+  color: #000; /* Ensures label is also black */
+}
+
+.document-select-dropdown {
+  padding: 8px 12px;
+  padding-right: 32px; /* Extra space for dropdown arrow */
+  font-size: 15px;
+  width: 500px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  color: #000; /* Black text color */
+  appearance: none; /* Optional: removes native styling (for full control) */
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='10'%20height='5'%3E%3Cpath%20fill='%23666'%20d='M0,0%205,5%2010,0'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 10px 5px;
+  transition: border 0.2s ease-in-out;
+}
+
+.document-select-dropdown:hover {
+  border-color: #888;
+}
+
+.document-select-dropdown:focus {
+  outline: none;
+  border-color: #007BFF;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
