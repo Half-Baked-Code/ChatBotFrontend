@@ -1,14 +1,28 @@
 // import React, { useState } from 'react';
-// import { FiMoreVertical } from 'react-icons/fi'; // 3 dots icon
+// import { FiMoreVertical } from 'react-icons/fi';
+// import ReactMarkdown from 'react-markdown';
+
 
 // const StudyGuide = () => {
 //   const [openMenuId, setOpenMenuId] = useState(null);
 //   const [selectedDocument, setSelectedDocument] = useState('');
-
-//   const notes = [
-//     { id: 1, title: "Reliability in Assessment", date: "2025-05-26" },
-//     { id: 2, title: "Marking Schemes Summary", date: "2025-05-20" },
-//   ];
+//   const [activeNote, setActiveNote] = useState(null); // for modal
+//   const [notes, setNotes] = useState([
+//     {
+//       id: 1,
+//       title: "Clarifying the Purpose of Educational Assessments",
+//       date: "2025-05-26",
+//       path: "C:/Users/Maham Jafri/Documents/Office Tasks/studybot/pdfs/research/Clarifying the purposes of educational assessment.pdf",
+//       content: ""
+//     },
+//     {
+//       id: 2,
+//       title: "Does Washback Exist?",
+//       date: "2025-05-20",
+//       path: "C:/Users/Maham Jafri/Documents/Office Tasks/studybot/pdfs/research/Does Washback Exists.pdf",
+//       content: ""
+//     }
+//   ]);
 
 //   const toggleMenu = (id) => {
 //     setOpenMenuId(openMenuId === id ? null : id);
@@ -18,36 +32,68 @@
 //     setSelectedDocument(event.target.value);
 //   };
 
+//   const sendToApi = async (endpoint) => {
+//     const selectedNoteIndex = notes.findIndex(note => note.title === selectedDocument);
+//     if (selectedNoteIndex === -1 || !notes[selectedNoteIndex].path) {
+//       alert("Please select a valid document.");
+//       return;
+//     }
+
+//     try {
+//       const response = await fetch(`http://localhost:8000/${endpoint}`, {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify({ document_path: notes[selectedNoteIndex].path })
+//       });
+
+//       const data = await response.json();
+//       const updatedNotes = [...notes];
+//       updatedNotes[selectedNoteIndex].content = data.result || data.reply || 'No content returned.';
+//       setNotes(updatedNotes);
+//       alert("Note generated! Click on the note to view it.");
+//     } catch (err) {
+//       console.error(err);
+//       alert("Failed to fetch response.");
+//     }
+//   };
+
+//   const openNoteModal = (note) => {
+//     setActiveNote(note);
+//   };
+
+//   const closeModal = () => {
+//     setActiveNote(null);
+//   };
+
 //   return (
 //     <div className="studyguide-window">
 //       <h2 className="studyguide-title">Study Guide</h2>
 //       <p className="studyguide-subtitle">Welcome to your personalized study guide!</p>
 
+//       {/* Document Selector */}
 //       <div className="document-select-container">
-//   <label htmlFor="document-select" className="document-select-label">
-//     Select a document:
-//   </label>
-//   <select
-//     id="document-select"
-//     className="document-select-dropdown"
-//     value={selectedDocument}
-//     onChange={handleDocumentChange}
-//   >
-//     <option value="">-- Choose a document --</option>
-//     {notes.map((note) => (
-//       <option key={note.id} value={note.title}>
-//         {note.title}
-//       </option>
-//     ))}
-//   </select>
-// </div>
+//         <label htmlFor="document-select" className="document-select-label">Select a document:</label>
+//         <select
+//           id="document-select"
+//           className="document-select-dropdown"
+//           value={selectedDocument}
+//           onChange={handleDocumentChange}
+//         >
+//           <option value="">-- Choose a document --</option>
+//           {notes.map((note) => (
+//             <option key={note.id} value={note.title}>
+//               {note.title}
+//             </option>
+//           ))}
+//         </select>
+//       </div>
 
-//       {/* Button Grid */}
+//       {/* Buttons */}
 //       <div className="button-grid">
 //         <button className="custom-button">Add a Note</button>
-//         <button className="custom-button">Study Guide</button>
-//         <button className="custom-button">FAQ</button>
-//         <button className="custom-button">Briefing Doc</button>
+//         <button className="custom-button" onClick={() => sendToApi('study-guide')}>Study Guide</button>
+//         <button className="custom-button" onClick={() => sendToApi('faq')}>FAQ</button>
+//         <button className="custom-button" onClick={() => sendToApi('briefing-doc')}>Briefing Doc</button>
 //       </div>
 
 //       {/* Notes List */}
@@ -55,13 +101,13 @@
 //         <h3 className="notes-title">Your Notes</h3>
 //         <ul className="notes-list">
 //           {notes.map(note => (
-//             <li key={note.id} className="note-item">
+//             <li key={note.id} className="note-item" onClick={() => openNoteModal(note)}>
 //               <div className="note-main">
 //                 <div>
 //                   <div className="note-title">{note.title}</div>
 //                   <div className="note-date">Created on {note.date}</div>
 //                 </div>
-//                 <div className="menu-wrapper">
+//                 <div className="menu-wrapper" onClick={e => e.stopPropagation()}>
 //                   <button className="menu-button" onClick={() => toggleMenu(note.id)}>
 //                     <FiMoreVertical />
 //                   </button>
@@ -78,6 +124,24 @@
 //           ))}
 //         </ul>
 //       </div>
+// {activeNote && (
+//   <div className="modal-overlay" onClick={closeModal}>
+//     <div className="modal-content" onClick={e => e.stopPropagation()}>
+//       <h3>{activeNote.title}</h3>
+//       <p><strong>Created on:</strong> {activeNote.date}</p>
+//       <hr />
+//       <p><strong>Generated Note:</strong></p>
+      
+//       <div className="markdown-content">
+//         <ReactMarkdown>
+//           {activeNote.content || "No content yet. Generate it with a button above."}
+//         </ReactMarkdown>
+//       </div>
+
+//       <button onClick={closeModal} className="modal-close-button">Close</button>
+//     </div>
+//   </div>
+// )}
 //     </div>
 //   );
 // };
@@ -86,16 +150,31 @@
 
 
 import React, { useState } from 'react';
-import { FiMoreVertical } from 'react-icons/fi'; // 3 dots icon
+import { FiMoreVertical } from 'react-icons/fi';
+import ReactMarkdown from 'react-markdown';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const StudyGuide = () => {
   const [openMenuId, setOpenMenuId] = useState(null);
-  const [selectedDocument, setSelectedDocument] = useState(''); // will hold the selected document title
-
-  const notes = [
-    { id: 1, title: "Reliability in Assessment", date: "2025-05-26", content: "This is the content of Reliability in Assessment." },
-    { id: 2, title: "Marking Schemes Summary", date: "2025-05-20", content: "Summary of marking schemes content here." },
-  ];
+  const [selectedDocument, setSelectedDocument] = useState('');
+  const [activeNote, setActiveNote] = useState(null); // for modal
+  const [notes, setNotes] = useState([
+    {
+      id: 1,
+      title: "Clarifying the Purpose of Educational Assessments",
+      date: "2025-05-26",
+      path: "C:/Users/Maham Jafri/Documents/Office Tasks/studybot/pdfs/research/Clarifying the purposes of educational assessment.pdf",
+      content: ""
+    },
+    {
+      id: 2,
+      title: "Does Washback Exist?",
+      date: "2025-05-20",
+      path: "C:/Users/Maham Jafri/Documents/Office Tasks/studybot/pdfs/research/Does Washback Exists.pdf",
+      content: ""
+    }
+  ]);
 
   const toggleMenu = (id) => {
     setOpenMenuId(openMenuId === id ? null : id);
@@ -105,18 +184,58 @@ const StudyGuide = () => {
     setSelectedDocument(event.target.value);
   };
 
-  // Find selected note object for preview
-  const selectedNote = notes.find(note => note.title === selectedDocument);
+  const sendToApi = async (endpoint) => {
+    const selectedNoteIndex = notes.findIndex(note => note.title === selectedDocument);
+    if (selectedNoteIndex === -1 || !notes[selectedNoteIndex].path) {
+      toast.warning("Please select a valid document.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:8000/${endpoint}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ document_path: notes[selectedNoteIndex].path })
+      });
+
+      const data = await response.json();
+      const updatedNotes = [...notes];
+      updatedNotes[selectedNoteIndex].content = data.result || data.reply || 'No content returned.';
+      setNotes(updatedNotes);
+      toast.success("Note generated! Click on the note to view it.");
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to fetch response.");
+    }
+  };
+
+  const openNoteModal = (note) => {
+    setActiveNote(note);
+  };
+
+  const closeModal = () => {
+    setActiveNote(null);
+  };
 
   return (
     <div className="studyguide-window">
+      {/* Toast Container for notifications */}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        theme="colored"
+      />
+
       <h2 className="studyguide-title">Study Guide</h2>
       <p className="studyguide-subtitle">Welcome to your personalized study guide!</p>
 
+      {/* Document Selector */}
       <div className="document-select-container">
-        <label htmlFor="document-select" className="document-select-label">
-          Select a document:
-        </label>
+        <label htmlFor="document-select" className="document-select-label">Select a document:</label>
         <select
           id="document-select"
           className="document-select-dropdown"
@@ -132,21 +251,12 @@ const StudyGuide = () => {
         </select>
       </div>
 
-      {/* Display preview of selected document */}
-      {selectedNote && (
-        <div className="document-preview" style={{ marginTop: '20px', padding: '10px', border: '1px solid #ccc' }}>
-          <h3>Preview: {selectedNote.title}</h3>
-          <p>{selectedNote.content}</p>
-          <small>Created on: {selectedNote.date}</small>
-        </div>
-      )}
-
-      {/* Button Grid */}
+      {/* Buttons */}
       <div className="button-grid">
         <button className="custom-button">Add a Note</button>
-        <button className="custom-button">Study Guide</button>
-        <button className="custom-button">FAQ</button>
-        <button className="custom-button">Briefing Doc</button>
+        <button className="custom-button" onClick={() => sendToApi('study-guide')}>Study Guide</button>
+        <button className="custom-button" onClick={() => sendToApi('faq')}>FAQ</button>
+        <button className="custom-button" onClick={() => sendToApi('mind-map')}>Mind Map</button>
       </div>
 
       {/* Notes List */}
@@ -154,13 +264,13 @@ const StudyGuide = () => {
         <h3 className="notes-title">Your Notes</h3>
         <ul className="notes-list">
           {notes.map(note => (
-            <li key={note.id} className="note-item">
+            <li key={note.id} className="note-item" onClick={() => openNoteModal(note)}>
               <div className="note-main">
                 <div>
                   <div className="note-title">{note.title}</div>
                   <div className="note-date">Created on {note.date}</div>
                 </div>
-                <div className="menu-wrapper">
+                <div className="menu-wrapper" onClick={e => e.stopPropagation()}>
                   <button className="menu-button" onClick={() => toggleMenu(note.id)}>
                     <FiMoreVertical />
                   </button>
@@ -177,6 +287,24 @@ const StudyGuide = () => {
           ))}
         </ul>
       </div>
+
+      {/* Modal for displaying note content */}
+      {activeNote && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={e => e.stopPropagation()}>
+            <h3>{activeNote.title}</h3>
+            <p><strong>Created on:</strong> {activeNote.date}</p>
+            <hr />
+            <p><strong>Generated Note:</strong></p>
+            <div className="markdown-content">
+              <ReactMarkdown>
+                {activeNote.content || "No content yet. Generate it with a button above."}
+              </ReactMarkdown>
+            </div>
+            <button onClick={closeModal} className="modal-close-button">Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

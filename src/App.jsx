@@ -5,7 +5,8 @@ import { FaComments, FaBook, FaUser, FaRobot, FaClipboardList } from 'react-icon
 import CourseMaterial from './components/CourseMaterial';
 import StudyGuide from './components/StudyGuide';
 import Chat from './components/Chat';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Sidebar = ({ currentTab, setCurrentTab }) => {
@@ -47,6 +48,16 @@ function App() {
 
   return (
     <div className="app">
+      {/* Toast container at the root level so it's always available */}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        theme="colored"
+      />
       <Sidebar currentTab={currentTab} setCurrentTab={setCurrentTab} />
       <div className="main-content">
         {currentTab === 'Chat' && <Chat />}
