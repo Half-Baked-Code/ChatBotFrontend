@@ -1,7 +1,8 @@
 // import React, { useState } from 'react';
 // import { FiMoreVertical } from 'react-icons/fi';
 // import ReactMarkdown from 'react-markdown';
-
+// import { toast, ToastContainer } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 // const StudyGuide = () => {
 //   const [openMenuId, setOpenMenuId] = useState(null);
@@ -35,7 +36,7 @@
 //   const sendToApi = async (endpoint) => {
 //     const selectedNoteIndex = notes.findIndex(note => note.title === selectedDocument);
 //     if (selectedNoteIndex === -1 || !notes[selectedNoteIndex].path) {
-//       alert("Please select a valid document.");
+//       toast.warning("Please select a valid document.");
 //       return;
 //     }
 
@@ -50,10 +51,10 @@
 //       const updatedNotes = [...notes];
 //       updatedNotes[selectedNoteIndex].content = data.result || data.reply || 'No content returned.';
 //       setNotes(updatedNotes);
-//       alert("Note generated! Click on the note to view it.");
+//       toast.success("Note generated! Click on the note to view it.");
 //     } catch (err) {
 //       console.error(err);
-//       alert("Failed to fetch response.");
+//       toast.error("Failed to fetch response.");
 //     }
 //   };
 
@@ -67,6 +68,17 @@
 
 //   return (
 //     <div className="studyguide-window">
+//       {/* Toast Container for notifications */}
+//       <ToastContainer
+//         position="top-right"
+//         autoClose={3000}
+//         hideProgressBar={false}
+//         newestOnTop
+//         closeOnClick
+//         pauseOnHover
+//         theme="colored"
+//       />
+
 //       <h2 className="studyguide-title">Study Guide</h2>
 //       <p className="studyguide-subtitle">Welcome to your personalized study guide!</p>
 
@@ -93,7 +105,7 @@
 //         <button className="custom-button">Add a Note</button>
 //         <button className="custom-button" onClick={() => sendToApi('study-guide')}>Study Guide</button>
 //         <button className="custom-button" onClick={() => sendToApi('faq')}>FAQ</button>
-//         <button className="custom-button" onClick={() => sendToApi('briefing-doc')}>Briefing Doc</button>
+//         <button className="custom-button" onClick={() => sendToApi('mind-map')}>Mind Map</button>
 //       </div>
 
 //       {/* Notes List */}
@@ -124,24 +136,24 @@
 //           ))}
 //         </ul>
 //       </div>
-// {activeNote && (
-//   <div className="modal-overlay" onClick={closeModal}>
-//     <div className="modal-content" onClick={e => e.stopPropagation()}>
-//       <h3>{activeNote.title}</h3>
-//       <p><strong>Created on:</strong> {activeNote.date}</p>
-//       <hr />
-//       <p><strong>Generated Note:</strong></p>
-      
-//       <div className="markdown-content">
-//         <ReactMarkdown>
-//           {activeNote.content || "No content yet. Generate it with a button above."}
-//         </ReactMarkdown>
-//       </div>
 
-//       <button onClick={closeModal} className="modal-close-button">Close</button>
-//     </div>
-//   </div>
-// )}
+//       {/* Modal for displaying note content */}
+//       {activeNote && (
+//         <div className="modal-overlay" onClick={closeModal}>
+//           <div className="modal-content" onClick={e => e.stopPropagation()}>
+//             <h3>{activeNote.title}</h3>
+//             <p><strong>Created on:</strong> {activeNote.date}</p>
+//             <hr />
+//             <p><strong>Generated Note:</strong></p>
+//             <div className="markdown-content">
+//               <ReactMarkdown>
+//                 {activeNote.content || "No content yet. Generate it with a button above."}
+//               </ReactMarkdown>
+//             </div>
+//             <button onClick={closeModal} className="modal-close-button">Close</button>
+//           </div>
+//         </div>
+//       )}
 //     </div>
 //   );
 // };
@@ -219,8 +231,8 @@ const StudyGuide = () => {
 
   return (
     <div className="studyguide-window">
-      {/* Toast Container for notifications */}
-      <ToastContainer
+       {/* Toast Container for notifications */}
+       <ToastContainer
         position="top-right"
         autoClose={3000}
         hideProgressBar={false}
@@ -229,7 +241,6 @@ const StudyGuide = () => {
         pauseOnHover
         theme="colored"
       />
-
       <h2 className="studyguide-title">Study Guide</h2>
       <p className="studyguide-subtitle">Welcome to your personalized study guide!</p>
 
@@ -256,7 +267,7 @@ const StudyGuide = () => {
         <button className="custom-button">Add a Note</button>
         <button className="custom-button" onClick={() => sendToApi('study-guide')}>Study Guide</button>
         <button className="custom-button" onClick={() => sendToApi('faq')}>FAQ</button>
-        <button className="custom-button" onClick={() => sendToApi('mind-map')}>Mind Map</button>
+        <button className="custom-button" onClick={() => sendToApi('briefing-doc')}>Briefing Doc</button>
       </div>
 
       {/* Notes List */}
@@ -287,24 +298,24 @@ const StudyGuide = () => {
           ))}
         </ul>
       </div>
+{activeNote && (
+  <div className="modal-overlay" onClick={closeModal}>
+    <div className="modal-content" onClick={e => e.stopPropagation()}>
+      <h3>{activeNote.title}</h3>
+      <p><strong>Created on:</strong> {activeNote.date}</p>
+      <hr />
+      <p><strong>Generated Note:</strong></p>
+      
+      <div className="markdown-content">
+        <ReactMarkdown>
+          {activeNote.content || "No content yet. Generate it with a button above."}
+        </ReactMarkdown>
+      </div>
 
-      {/* Modal for displaying note content */}
-      {activeNote && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={e => e.stopPropagation()}>
-            <h3>{activeNote.title}</h3>
-            <p><strong>Created on:</strong> {activeNote.date}</p>
-            <hr />
-            <p><strong>Generated Note:</strong></p>
-            <div className="markdown-content">
-              <ReactMarkdown>
-                {activeNote.content || "No content yet. Generate it with a button above."}
-              </ReactMarkdown>
-            </div>
-            <button onClick={closeModal} className="modal-close-button">Close</button>
-          </div>
-        </div>
-      )}
+      <button onClick={closeModal} className="modal-close-button">Close</button>
+    </div>
+  </div>
+)}
     </div>
   );
 };
